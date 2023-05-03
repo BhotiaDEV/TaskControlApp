@@ -35,7 +35,7 @@
     <hr>
     <div class="all-tasks">
         
-        <p-table class="table" [value]="tasks" [paginator]="true" [rows]="2" sortMode="multiple"
+        <p-table class="table" [value]="tasks" [paginator]="true" [rows]="4" sortMode="multiple"
             [(selection)]="selectedTasks" 
             [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[4,8]" responsiveLayout="scroll">
             <ng-template pTemplate="header">

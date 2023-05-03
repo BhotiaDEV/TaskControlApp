@@ -4,7 +4,7 @@
         <div class="widget-body">
             <p-table class="table" [value]="leader" [paginator]="true" [rows]="2" sortMode="multiple"
            
-            [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[4,8]" responsiveLayout="scroll">
+            [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[2,4,8]" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="text" >Tasks
@@ -47,7 +47,7 @@
         <div class="widget-body">
             <p-table class="table" [value]="personal" [paginator]="true" [rows]="2" sortMode="multiple"
            
-            [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[4,8]" responsiveLayout="scroll">
+            [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[2,4,8]" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="text" >Tasks
@@ -90,7 +90,7 @@
         <div class="widget-body">
             <p-table class="table" [value]="global" [paginator]="true" [rows]="2" sortMode="multiple"
            
-            [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[4,8]" responsiveLayout="scroll">
+            [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[2,4,6]" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="text" >Tasks

@@ -59,7 +59,15 @@ export class TaskService implements OnInit {
   }
   public addTask(newTask:any[]){
     this.task.push(newTask);
-    this.TaskSubject.next(this.task)
+    this.TaskSubject.next(this.task);
+
+    this.personal = this.task.filter((item)=> item.isGlobal != true);
+    this.leader = this.task.filter((item)=> item.isLeader == true );
+    this.global = this.task.filter((item)=> item.isGlobal == true );
+
+    this.leadertasks.next(this.leader);
+    this.globaltasks.next(this.global);
+    this.personaltasks.next(this.personal);
   }
    
   public updateTask(selectedTasks){
@@ -68,5 +76,6 @@ export class TaskService implements OnInit {
         item.isCompleted = true;
       }
     });
+    
   }
 }
