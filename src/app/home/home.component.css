@@ -1,0 +1,21 @@
+.home{
+    float:left;
+    width:85vw;
+}
+.widget-heading{
+    padding-left:20px;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin:20px 0;
+    letter-spacing: 1px;
+
+}
+.widget-body{
+    box-shadow: 0 5px 10px 0 #bfbfbf;
+    border-radius: 1vw;
+    overflow: hidden;
+}
+.leader,.personal,.global{
+    display:block;
+    margin:20px ;
+}

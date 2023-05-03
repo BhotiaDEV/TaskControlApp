@@ -1,0 +1,22 @@
+.navbar{
+    height:10vh;
+    /* border:1px solid red; */
+    display:flex;
+    align-items: center;
+    padding-left:20px;
+    padding-right:10px;
+    box-shadow: 5px 0 15px 0px #bfbfbf;
+}
+.navbar-heading{
+    flex:1;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+.task-count{
+    width:200px;
+    display:flex;
+    justify-content: center;
+    gap: 10px;
+}
