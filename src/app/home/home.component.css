@@ -1,6 +1,7 @@
 .home{
     float:left;
     width:85vw;
+    margin-left:1vw;
 }
 .widget-heading{
     padding-left:20px;
