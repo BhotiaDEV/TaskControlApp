@@ -54,8 +54,7 @@ export class TaskService implements OnInit {
         return this.leadertasks.asObservable();
       default :
         return this.TaskSubject.asObservable();
-      }
-      
+      }      
   }
   public addTask(newTask:any[]){
     this.task.push(newTask);

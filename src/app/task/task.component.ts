@@ -29,7 +29,7 @@ export class TaskComponent implements OnInit {
     
     if(task.target.type.value == 'personal')
     this.newTask = {
-        task  :task.target.task.value, 
+        text  :task.target.task.value, 
         creator :task.target.name.value, 
         start :task.target.start.value, 
         end :task.target.end.value, 
@@ -39,7 +39,7 @@ export class TaskComponent implements OnInit {
     }
     else if(task.target.type.value == 'global')
     this.newTask = {
-        task  :task.target.task.value, 
+        text  :task.target.task.value, 
         creator :task.target.name.value, 
         start :task.target.start.value, 
         end :task.target.end.value, 
@@ -49,7 +49,7 @@ export class TaskComponent implements OnInit {
     }
     else if(task.target.type.value == 'leader')
     this.newTask = {
-        task  :task.target.task.value, 
+        text  :task.target.task.value, 
         creator :task.target.name.value, 
         start :task.target.start.value, 
         end :task.target.end.value, 
