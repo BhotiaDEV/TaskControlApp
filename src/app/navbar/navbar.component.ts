@@ -14,8 +14,8 @@ export class NavbarComponent implements OnInit {
   constructor(private taskService: TaskService) {
     this.taskService.getTask().subscribe(data => this.all = data);
     this.taskService.getTask('personal').subscribe(data => this.personal = data)
-    this.personalLength = this.personal.filter((item) => item.isCompleted == false )
-    this.allLength = this.all.filter((item) => item.isCompleted == false )
+    // this.personalLength = this.personal.filter((item) => item.isCompleted == false )
+    // this.allLength = this.all.filter((item) => item.isCompleted == false )
    }
 
   ngOnInit(): void {
