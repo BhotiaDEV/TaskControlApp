@@ -5,29 +5,29 @@
         <button class="update-btn" (click)="changeType('leader')">Leader Tasks</button>
         <button class="update-btn" (click)="changeType('global')">Global Tasks</button>
     </div> -->
-    <div class="add-task" (submit)="addtask($event)">
+    <div class="add-task"  >
         <button class="new-task" (click)="toggleForm = !toggleForm">Add New Task +</button>
-        <form *ngIf="toggleForm">
+        <form [formGroup]="taskForm" (ngSubmit)="addtask($event)" *ngIf="toggleForm">
             <div class="form-heading">Add New Task</div>
-            <div class="form-group">
+            <div class="form-section">
                 <label for="name">Enter Name</label>
-                <input id="name" name="name" type="text" class="form-control" required>
+                <input id="name" formControlName="name" type="text" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-section">
                 <label for="task">Enter Task</label>
-                <input id="task" name="task" type="text" class="form-control" required>
+                <input id="task" formControlName="task" type="text" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-section">
                 <label for="type">Enter type</label>
-                <input id="type" name="type" type="text" class="form-control" placeholder="eg: Personal, Leader, Global" required>
+                <input id="type" formControlName="type" type="text" class="form-control" placeholder="eg: Personal, Leader, Global" required>
             </div>
-            <div class="form-group">
+            <div class="form-section">
                 <label for="start">From</label>
-                <input id="start" name="start" type="text" class="form-control" placeholder="YYYY-MM-DD" required>
+                <input id="start" formControlName="start" type="text" class="form-control" placeholder="YYYY-MM-DD" required>
             </div>
-            <div class="form-group">
+            <div class="form-section">
                 <label for="end">To</label>
-                <input id="end" name="end" type="text" class="form-control" placeholder="YYYY-MM-DD" required>
+                <input id="end" formControlName="end" type="text" class="form-control" placeholder="YYYY-MM-DD" required>
             </div>
             <button class="submit" type="submit" >Submit</button>
         </form>

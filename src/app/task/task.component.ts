@@ -3,6 +3,8 @@ import { TaskService } from '../task.service';
 import { TaskModel } from '../task.model';
 import { map,tap } from 'rxjs/operators';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
@@ -15,19 +17,30 @@ export class TaskComponent implements OnInit {
   public newTask : any;
   public toggleForm : boolean = false;
 
+  taskForm: FormGroup;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService , private formBuilder: FormBuilder) {
     this.taskService.getTask().subscribe((data)=> this.tasks = data);
+
+    this.taskForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      task: ['', Validators.required],
+      type: ['', Validators.required],
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+    })
    }
 
   ngOnInit(): void {
   }
-  removetask(){}
+  
+
   addtask(task){
     console.log(task.target.name)
     // this.taskService.newTask.emit
-    
-    if(task.target.type.value == 'personal')
+    if(this.taskForm.valid)
+    {
+    if(task.target.type.value.toLowerCase() == 'personal')
     this.newTask = {
         text  :task.target.task.value, 
         creator :task.target.name.value, 
@@ -37,7 +50,7 @@ export class TaskComponent implements OnInit {
         isLeader  :false,
         isCompleted : false
     }
-    else if(task.target.type.value == 'global')
+    else if(task.target.type.value.toLowerCase() == 'global')
     this.newTask = {
         text  :task.target.task.value, 
         creator :task.target.name.value, 
@@ -47,7 +60,7 @@ export class TaskComponent implements OnInit {
         isLeader  :false,
         isCompleted : false
     }
-    else if(task.target.type.value == 'leader')
+    else if(task.target.type.value.toLowerCase() == 'leader')
     this.newTask = {
         text  :task.target.task.value, 
         creator :task.target.name.value, 
@@ -59,6 +72,7 @@ export class TaskComponent implements OnInit {
     }
     // console.log(this.taskService.newTask);
     this.taskService.addTask(this.newTask);
+    }
   }
   update(){
     if(this.selectedTasks)
