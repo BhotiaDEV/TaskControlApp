@@ -1,10 +1,10 @@
 <div class="tasks">
     <div class="task-heading">All Tasks</div>
-    <!-- <div class="button-grp">
-        <button class="update-btn" (click)="changeType('personal')">Personal Tasks</button>
-        <button class="update-btn" (click)="changeType('leader')">Leader Tasks</button>
-        <button class="update-btn" (click)="changeType('global')">Global Tasks</button>
-    </div> -->
+    <div class="button-grp">
+        <button class="personal-btn" (click)="changeType('personal')">Personal Tasks</button>
+        <button class="leader-btn" (click)="changeType('leader')">Leader Tasks</button>
+        <button class="global-btn" (click)="changeType('global')">Global Tasks</button>
+    </div>
     <div class="add-task"  >
         <button class="new-task" (click)="toggleForm = !toggleForm">Add New Task +</button>
         <form [formGroup]="taskForm" (ngSubmit)="addtask($event)" *ngIf="toggleForm">
@@ -35,18 +35,23 @@
     <hr>
     <div class="all-tasks">
         
-        <p-table class="table" [value]="tasks" [paginator]="true" [rows]="4" sortMode="multiple"
+        <p-table #tasktable class="table" [value]="tasks" [paginator]="true" [rows]="4" sortMode="multiple"
             [(selection)]="selectedTasks" 
             [globalFilterFields]="['text','creator']" [rowsPerPageOptions]="[4,8]" responsiveLayout="scroll">
+            <ng-template pTemplate="caption" >
+                <div class="flex justify-content-between">
+                    <button class="update-btn" (click)="update()">Mark as Completed</button>
+                    <span class="p-input-icon-left ">
+                        <input class="input-style " pInputText type="text" (input)="tasktable.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                </div>
+            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem"></th>
-                    <th pSortableColumn="text" >Tasks
-                        
-                    </th>
                     <th pSortableColumn="creator" style="width:20%" >Name 
-                        <p-columnFilter type="text" field="creator" display="menu"></p-columnFilter>
                         <p-sortIcon field="creator"></p-sortIcon></th>
+                    <th pSortableColumn="creator" >Tasks <p-sortIcon field="creator"></p-sortIcon></th>
                     <th>Type</th>
                     <th>Status </th>
                     <th>Start date</th>
@@ -74,9 +79,6 @@
                     <td>{{task.start}}</td>
                     <td>{{task.end}}</td>
                 </tr>
-            </ng-template>
-            <ng-template pTemplate="caption" >
-                <button class="update-btn" (click)="update()">Mark as Completed</button>
             </ng-template>
         </p-table>
     </div>

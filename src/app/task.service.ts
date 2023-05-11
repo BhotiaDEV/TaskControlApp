@@ -8,65 +8,43 @@ import { TaskModel } from './task.model';
   providedIn: 'root'
 })
 export class TaskService implements OnInit {
-  public task: any[] = [];
-  public leader : any[] = [];
-  public global : any[] = [];
-  public personal : any[] = [];
-  public TaskSubject = new BehaviorSubject({});
-
-  public globaltasks = new BehaviorSubject({});
-  public leadertasks = new BehaviorSubject({});
-  public personaltasks = new BehaviorSubject({});
-
+  public task;
+  public leader ;
+  public global ;
+  public personal ;
+  public TaskSubject = new BehaviorSubject([]);
 
   constructor(private http : HttpClient) {
     this.task = taskdata;
-    this.TaskSubject.next(this.task);
-
-    // console.log(this.task.filter((item)=> item.isLeader == true ))
     this.personal = this.task.filter((item)=> item.isGlobal != true);
     this.leader = this.task.filter((item)=> item.isLeader == true );
-    this.global = this.task.filter((item)=> item.isGlobal == true );
-
-    console.log(this.leader)
-
-    this.leadertasks.next(this.leader);
-    this.globaltasks.next(this.global);
-    this.personaltasks.next(this.personal);
-
-    this.leadertasks.subscribe(data => {console.log(data)})
+    this.global = this.task.filter((item)=> item.isGlobal == true );    
+    const obj : any = {
+      personal : this.personal,
+      global : this.global,
+      leader : this.leader,
+      all : this.task
+    }
+    this.TaskSubject.next(obj);
   }
-  ngOnInit(){
-    
-  }
-  
-  // public getTask(){
-  //   return this.TaskSubject.asObservable();
-  // }
+  ngOnInit(){}
 
   public getTask(tasktype : String = 'all'){
-      switch(tasktype){
-      case 'global':
-        return this.globaltasks.asObservable();
-      case 'personal':
-        return this.personaltasks.asObservable();
-      case 'leader' : 
-        return this.leadertasks.asObservable();
-      default :
-        return this.TaskSubject.asObservable();
-      }      
+        return this.TaskSubject.asObservable();    
   }
+
   public addTask(newTask:any[]){
     this.task.push(newTask);
-    this.TaskSubject.next(this.task);
-
     this.personal = this.task.filter((item)=> item.isGlobal != true);
     this.leader = this.task.filter((item)=> item.isLeader == true );
-    this.global = this.task.filter((item)=> item.isGlobal == true );
-
-    this.leadertasks.next(this.leader);
-    this.globaltasks.next(this.global);
-    this.personaltasks.next(this.personal);
+    this.global = this.task.filter((item)=> item.isGlobal == true );    
+    const obj : any = {
+      personal : this.personal,
+      global : this.global,
+      leader : this.leader,
+      all : this.task
+    }
+    this.TaskSubject.next(this.task);
   }
    
   public updateTask(selectedTasks){

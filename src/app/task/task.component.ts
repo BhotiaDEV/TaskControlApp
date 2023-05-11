@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
+  public data;
   public tasks;
   public tasktype: string = '';
   public selectedTasks;
@@ -20,8 +21,8 @@ export class TaskComponent implements OnInit {
   taskForm: FormGroup;
 
   constructor(private taskService: TaskService , private formBuilder: FormBuilder) {
-    this.taskService.getTask().subscribe((data)=> this.tasks = data);
-
+    this.taskService.TaskSubject.subscribe((data)=> this.data = data);
+    this.tasks = this.data.all;
     this.taskForm = this.formBuilder.group({
       name: ['', Validators.required],
       task: ['', Validators.required],
@@ -31,62 +32,33 @@ export class TaskComponent implements OnInit {
     })
    }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
   
 
   addtask(task){
-    console.log(task.target.name)
-    // this.taskService.newTask.emit
-    if(this.taskForm.valid)
-    {
-    if(task.target.type.value.toLowerCase() == 'personal')
+    if(!this.taskForm.valid)
+    return;
+    const type = task.target.type.valye.toLowerCase();
     this.newTask = {
         text  :task.target.task.value, 
         creator :task.target.name.value, 
         start :task.target.start.value, 
         end :task.target.end.value, 
-        isGlobal  :false,
-        isLeader  :false,
+        isGlobal  : type === 'global',
+        isLeader  : type === 'leader',
         isCompleted : false
     }
-    else if(task.target.type.value.toLowerCase() == 'global')
-    this.newTask = {
-        text  :task.target.task.value, 
-        creator :task.target.name.value, 
-        start :task.target.start.value, 
-        end :task.target.end.value, 
-        isGlobal  :true,
-        isLeader  :false,
-        isCompleted : false
-    }
-    else if(task.target.type.value.toLowerCase() == 'leader')
-    this.newTask = {
-        text  :task.target.task.value, 
-        creator :task.target.name.value, 
-        start :task.target.start.value, 
-        end :task.target.end.value, 
-        isGlobal  :false,
-        isLeader  :true,
-        isCompleted : false
-    }
-    // console.log(this.taskService.newTask);
     this.taskService.addTask(this.newTask);
-    }
   }
+
   update(){
     if(this.selectedTasks)
     this.taskService.updateTask(this.selectedTasks);
-    // this.taskService.task.forEach(element => {
-    //   if(element.text === this.selectedTasks.text)
-    //     element.isCompleted = true;
-    // });
-    // console.log(this.taskService.task)
   }
+
   changeType(type:string){
     this.tasktype = type;
-  }
-  newtask(){
-
+    this.tasks = this.data[type];
   }
 }
